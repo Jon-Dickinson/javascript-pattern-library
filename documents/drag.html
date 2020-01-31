@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="JavaScript Calendar Component">
+
+  <title>JavaScript</title>
+
+  <link rel="shortcut icon" href="favicon.ico">
+
+  <!-- necolas.github.io/normalize -->
+  <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/css/cssr-restart.css" />
+
+  <link rel="stylesheet" type="text/css" href="../assets/css/cssr-framework.css" />
+
+  <!-- fonts.googleapis -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <main class="if__base-wrapper pad-tb-0 direction--column ">
+    <div class="vertical-inline-flex bg-651fff pad-tb-20">
+      <div class="flex__mid-container direction--column max-w-768">
+        <h1 class="font--s-2 font-w--300 font-family--roboto-mono color--ffffff margin-tb-2">JavaScript</h1>
+      </div>
+    </div>
+
+
+    <section class="vertical-inline-flex pad-tb-40 bg-primary-1">
+      <div class="flex__mid-container direction--column max-w-768 pad-tb-20">
+        <h2 class="font-s--22 font-w--300 margin-tb-20">
+          Drag
+        </h2>
+      </div>
+    </section>
+
+    <section class="vertical-inline-flex pad-tb-40">
+      <div class="flex__mid-container direction--column max-w-768 pad-tb-20">
+
+        <p>
+          There are several types of dragged objects, including element nodes, pictures, links, selected text, and so
+          on. In a web page, except for the element node which cannot be dragged by default, other (images, links,
+          selected text) can be dragged directly. To make the element node draggable, you can set the node's draggable
+          property to true.
+        </p>
+
+<xmp class="margin-t-20 margin-b-20">
+<div draggable="true">
+  <element></element>
+</div>
+</xmp>
+
+        <p class="font-w--300 margin-t-20 margin-b-20">
+          The draggable attribute can be used on any element node, but images and links can be dragged without this
+          attribute. For them, when this attribute is used, it is often set to false to prevent dragging these two
+          elements.
+
+          Note that once the draggable property of an element node is set to true, you can no longer select the text or
+          child nodes inside the node with the mouse.
+
+          When an element node or selected text is dragged, drag events are continuously triggered, including the
+          following events.
+        </p>
+        <p class="font-w--300 margin-t-20 margin-b-20">
+          <code class="color--magenta">drag</code> during the dragging process, trigger continuously on the dragged node
+          (a few hundred milliseconds apart).
+        </p>
+        <p class="font-w--300 margin-t-20 margin-b-20">
+          <code class="color--magenta">dragstart</code> when the user starts dragging, it is triggered on the dragged
+          node. The target attribute of the event is the dragged node. Usually you should specify the data to be dragged
+          in the listener function for this event.
+        </p>
+        <p class="font-w--300 margin-t-20 margin-b-20">
+          <code class="color--magenta">dragend</code> triggered at the end of the drag (release the mouse button or
+          press the ESC key) on the dragged node, the target property of the event is the dragged node It is triggered
+          on the same node as the dragstart event. The dragend event will always fire regardless of whether the drag is
+          across a window or cancelled in the middle.
+        </p>
+        <p class="font-w--300 margin-t-20 margin-b-20">
+          <code class="color--magenta">dragenter</code> when dragging into the current node, it is triggered once on the
+          current node. The target attribute of the event is the current node. Usually you should specify in the
+          listener function of this event whether to allow the dropped data to be dropped on the current node. If the
+          current node does not have a listener function for this event, or the listener function does nothing, it means
+          that data is not allowed to be dropped on the current node. Visually dragging into the current node is also
+          set in the listener function for this event.
+        </p>
+        <p class="font-w--300 margin-t-20 margin-b-20">
+          <code class="color--magenta">dragover</code> when dragged above the current node, it is continuously triggered
+          on the current node (several hundred milliseconds apart). The target attribute of this event is the current
+          node. The difference between this event and the dragenter event is that the dragenter event is triggered when
+          it enters the node, and the dragover event will continue to fire as long as it does not leave the node.
+        </p>
+        <p class="font-w--300 margin-t-20 margin-b-20">
+          <code class="color--magenta">dragleave</code> when the drag operation leaves the current node range, it is
+          triggered on the current node. The target attribute of this event is the current node. If you want to visually
+          display the current node of the drag and drop operation, set it in the listener function of this event.
+        </p>
+        <p class="font-w--300 margin-t-20 margin-b-20">
+          <code class="color--magenta">drop</code> the dragged node or selected text is triggered on the target node
+          when it is released to the target node. Note that if the current node does not allow drop, the event will not
+          be triggered even if the mouse button is released above the node. If the user presses the ESC key, canceling
+          this operation will not trigger the event. The listener function of this event is responsible for taking out
+          the drag data and performing related processing.
+        </p>
+      
+<style>
+.dropzone {
+  position: relative;
+  display: inline-flex;
+  height: 50px;
+  padding: 0 20px;
+  background-color: #a7a7a7;
+}
+
+.draggable {
+  position: relative;
+  display: inline-flex;
+  height: 50px;
+  line-height: 50px;
+
+  color: #ffffff;
+  cursor: grab;
+}
+</style>
+
+        <div class="vertical-inline-flex margin-tb-20">
+          <div class="dropzone">
+            <div class="draggable" id="draggable" draggable="true">
+              This element is draggable
+            </div>
+          </div>
+
+          <div class="dropzone"> </div>
+
+          <div class="dropzone"> </div>
+
+          <div class="dropzone"> </div>
+        </div>
+      
+
+<script>
+let dragged;
+
+document.addEventListener('dragstart', function (event) {
+  // Save the dragged node
+  dragged = event.target;
+  // The background color of the dragged node becomes transparent
+  event.target.style.opacity = 0.5;
+}, false);
+
+document.addEventListener('dragend', function (event) {
+  // The background color of the dragged node returns to normal
+  event.target.style.opacity = '';
+}, false);
+
+document.addEventListener('dragover', function (event) {
+  // Prevent the dragging effect from being reset
+  // and allow the dragged node to be placed in the target node
+  event.preventDefault();
+}, false);
+
+document.addEventListener('dragenter', function (event) {
+  // The background color of the target node becomes purple
+  // Because the event will bubble, so filter the nodes
+  if (event.target.className === 'dropzone') {
+    event.target.style.background = 'magenta';
+  }
+}, false);
+
+document.addEventListener('dragleave', function (event) {
+  // The background color of the target node is restored
+  if (event.target.className === 'dropzone') {
+    event.target.style.background = '';
+  }
+}, false);
+
+document.addEventListener('drop', function (event) {
+  // prevent the default behavior of the event
+  // (for example, links can be opened on some element nodes),
+  event.preventDefault();
+  if (event.target.className === 'dropzone') {
+    // Restore target node background color
+    event.target.style.background = '';
+    // Insert the dragged node into the target node
+    dragged.parentNode.removeChild(dragged);
+    event.target.appendChild(dragged);
+  }
+
+}, false);
+</script>
+
+<xmp>
+let dragged;
+
+document.addEventListener('dragstart', function (event) {
+  // Save the dragged node
+  dragged = event.target;
+  // The background color of the dragged node becomes transparent
+  event.target.style.opacity = 0.5;
+}, false);
+
+document.addEventListener('dragend', function (event) {
+  // The background color of the dragged node returns to normal
+  event.target.style.opacity = '';
+}, false);
+
+document.addEventListener('dragover', function (event) {
+  // Prevent the dragging effect from being reset
+  // and allow the dragged node to be placed in the target node
+  event.preventDefault();
+}, false);
+
+document.addEventListener('dragenter', function (event) {
+  // The background color of the target node becomes purple
+  // Because the event will bubble, so filter the nodes
+  if (event.target.className === 'dropzone') {
+    event.target.style.background = 'magenta';
+  }
+}, false);
+
+document.addEventListener('dragleave', function (event) {
+  // The background color of the target node is restored
+  if (event.target.className === 'dropzone') {
+    event.target.style.background = '';
+  }
+}, false);
+
+document.addEventListener('drop', function (event) {
+  // prevent the default behavior of the event
+  // (for example, links can be opened on some element nodes),
+  event.preventDefault();
+  if (event.target.className === 'dropzone') {
+    // Restore target node background color
+    event.target.style.background = '';
+    // Insert the dragged node into the target node
+    dragged.parentNode.removeChild(dragged);
+    event.target.appendChild(dragged);
+  }
+
+}, false);
+</xmp>
+  
+
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+  </main>
+
+
+</body>
+
+</html>

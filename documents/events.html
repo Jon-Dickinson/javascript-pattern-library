@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="JavaScript Calendar Component">
+
+  <title>JavaScript</title>
+
+  <link rel="shortcut icon" href="favicon.ico">
+
+  <!-- necolas.github.io/normalize -->
+  <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/css/cssr-restart.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/css/cssr-framework.css" />
+
+  <!-- fonts.googleapis -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <main class="if__base-wrapper pad-tb-0 direction--column ">
+    <div class="vertical-inline-flex bg-651fff pad-tb-20">
+      <div class="flex__mid-container direction--column max-w-768">
+        <h1 class="font--s-2 font-w--300 font-family--roboto-mono color--ffffff margin-tb-2">JavaScript</h1>
+      </div>
+    </div>
+
+    <section class="vertical-inline-flex pad-tb-40 bg-primary-1">
+      <div class="flex__mid-container direction--column max-w-768 pad-tb-20">
+        <h2 class="font-s--22 font-w--300 margin-tb-20">
+          Events
+        </h2>
+      </div>
+    </section>
+
+    <section class="vertical-inline-flex pad-tb-40">
+      <div class="flex__mid-container direction--column max-w-768 pad-tb-20">
+        <p class="font-w--300 margin-t-80 margin-b-20">
+          <code class="color--magenta">readystatechange</code>
+        </p>
+
+        <p>
+          The readystatechange event is triggered when the readyState property of the Document object
+          and the XMLHttpRequest object changes. document.readyState has three possible values:
+          loading (the webpage is loading),
+          interactive (the webpage has been parsed but external resources are still loading)
+          and complete (the webpage and all external resources have ended Loading,
+          load event is about to be triggered).
+        </p>
+<xmp>
+document.onreadystatechange = function () {
+  if (document.readyState === 'interactive') {
+    // ...
+  }
+}
+</xmp>
+
+        <p class="font-w--300 margin-t-80 margin-b-20">
+          <code class="color--magenta">focus,</code>
+          <code class="color--magenta margin-l-10">blur</code>
+        </p>
+
+        <p>
+          Since the focus and blur events do not bubble, they can only be triggered during the capture phase, so the
+          third parameter of the addEventListener method needs to be set to true.
+        </p>
+
+<xmp>
+let formA = document.getElementById('formA');
+
+formA.addEventListener ('focus', function(event) {
+  event.target.style.background = 'cyan' ;
+}, true );
+
+formA.addEventListener ('blur', function(event) {
+  event.target.style.background = '' ;
+}, true );
+</xmp>
+
+        <form class="vertical-inline-flex pad-all-20 border-1px-silver margin-t-20" id="formA">
+          <input class="input-outline" type="text" />
+        </form>
+
+        <script>
+          let formA = document.getElementById('formA');
+
+          formA.addEventListener('focus', function (event) {
+            event.target.style.background = 'cyan';
+          }, true);
+
+          formA.addEventListener('blur', function (event) {
+            event.target.style.background = '';
+          }, true);
+        </script>
+
+
+
+        <p class="font-w--300 margin-t-80 margin-b-20">
+          <code class="color--magenta">event.type</code>
+        </p>
+
+        <p>
+          The Event.type property returns a string indicating the type of event. The type of event is specified when the
+          event is generated. This property is read-only.
+        </p>
+
+<xmp>
+var evt = new Event ('foo');
+evt.type // "foo"
+</xmp>
+
+
+        <p class="font-w--300 margin-t-80 margin-b-20">
+          <code class="color--magenta">event.timeStamp</code>
+        </p>
+
+        <p>
+          The Event.timeStamp property returns a millisecond timestamp indicating when the event occurred. It is
+          calculated relative to the successful start of the page load.
+        </p>
+
+<xmp>
+var evt = new Event ('foo');
+evt.timeStamp // 3683.6999999995896
+</xmp>
+
+
+
+        <p class="font-w--300 margin-t-80 margin-b-20">
+          <code class="color--magenta">event.preventDefault</code>
+        </p>
+
+        <p>
+          The Event.preventDefault method cancels the browser's default behavior for the current event. For example,
+          after clicking a link, the browser will jump to another page by default. After using this method, it will not
+          jump to another page; for example, if you press the space bar, the page will scroll down a certain distance.
+          Scrolled up. The premise of this method is that the cancelable property of the event object is true, if it is
+          false, calling this method has no effect.
+          Note that this method just cancels the default effect of the event on the current element and does not prevent
+          the event from propagating. If you want to stop propagation, you can use the stopPropagation () or
+          stopImmediatePropagation () method.
+        </p>
+
+        <div>
+          <div class="display-inline-flex align--center justify--center pad-lr-15 border-1px-silver margin-t-15">
+            <input class="input-outline" type="checkbox" id="checkboxA" />
+          </div>
+        </div>
+
+
+
+<xmp>
+var cb1 = document.getElementById('checkboxA');
+
+cb1.addEventListener (
+  'click', function(e) {
+    e.preventDefault ();
+  }, false
+);
+</xmp>
+
+        <script>
+          var cb1 = document.getElementById('checkboxA');
+
+          cb1.addEventListener(
+            'click',
+            function (e) {
+              e.preventDefault();
+            }, false
+          );
+        </script>
+
+
+
+        <p class="font-w--300 margin-t-80 margin-b-20">
+          <code class="color--magenta">event.composedPath</code>
+        </p>
+
+        <p class="margin-b-20">
+          Event.composedPath returns an array whose members are
+          the bottom-most node of the event and all
+          parent nodes in order, starting from from closet node.
+        </p>
+
+
+        <div id="helloContainer">
+          <button class="button-solid display-inline-block" id="helloText"> Click Here </p>
+        </div>
+
+
+
+<xmp>
+<div id="helloContainer">
+  <button id="helloText"> Click Here </p>
+</div>
+
+
+let div = document.getElementById('helloContainer')
+let p = document.getElementById('helloText')
+
+div.addEventListener('click', function(e) {
+  console.log(e.composedPath ());
+}, false );
+</xmp>
+
+        <script>
+          let div = document.getElementById('helloContainer')
+          let p = document.getElementById('helloText')
+
+          div.addEventListener('click', function (e) {
+            console.log(e.composedPath());
+          }, false);
+
+          // [p, div, body, html, document, Window]
+        </script>
+
+
+<xmp>
+
+0: <p id="helloText">​
+1: <div id="helloContainer">​
+2: <section class="flex__mid-container dire…umn max-w-960 pad-tb-20">​
+3: <div class="vertical-inline-flex pad-tb-40">​
+4: <main class="if__base-wrapper pad-tb-0 direction--column ">​
+5: <body>​
+6: <html dir="ltr" lang="en">​
+7: HTMLDocument file:///C:/Development/pattern-libraries/javascript-pattern-library/index.html
+8: Window file:///C:/Development/pattern-libraries/javascript-pattern-library/index.html
+​
+length: 9
+</xmp>
+
+
+    </section>
+
+  </main>
+
+
+</body>
+
+</html>
